@@ -35,7 +35,9 @@ const Three = () => {
       <PerspectiveCamera makeDefault position={[0, 1, 5]} />
 
       {/* Light */}
-      <ambientLight args={["#ffffff", 1]} />
+      <ambientLight args={["#ffffff", 0.3]} />
+
+      <directionalLight args={["#ffffff", 1]} position={[-3, 1, 0]} />
 
       {/* Ball */}
       <mesh position={[0, 0.5, 0]}>
