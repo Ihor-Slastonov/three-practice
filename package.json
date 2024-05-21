@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://ihor-slastonov.github.io/three-practice",
+  "homepage": "https://ihor-slastonov.github.io/three-practice/",
   "dependencies": {
     "@react-three/drei": "^9.105.6",
     "@react-three/fiber": "^8.16.6",
