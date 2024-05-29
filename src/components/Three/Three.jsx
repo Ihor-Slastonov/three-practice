@@ -8,6 +8,8 @@ import { angleToRadians } from "../../helpers/angleToRadian";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import gsap from "gsap";
+import { Car } from "./Car";
 
 /* eslint-disable react/no-unknown-property */
 const Three = () => {
@@ -22,14 +24,43 @@ const Three = () => {
     }
   });
 
+  // Animation
+  const ballRef = useRef();
+
   useEffect(() => {
-    if (orbitControlsRef.current) {
-      console.log(orbitControlsRef.current);
+    if (ballRef.current) {
+      const ball = ballRef.current.position;
+      const timeline = gsap.timeline();
+
+      // x-axis motion
+      timeline.to(ball, {
+        x: 1,
+        duration: 2,
+      });
+
+      timeline.to(
+        ball,
+        {
+          y: 0.5,
+          duration: 1,
+          ease: "bounce.out",
+        },
+        "<"
+      );
     }
   }, []);
 
   return (
     <>
+      {/* Ball */}
+      <mesh position={[-2, 2, 0]} castShadow ref={ballRef}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshStandardMaterial color="#ffffff" metalness={0.4} roughness={0.2} />
+      </mesh>
+
+      {/* Car */}
+      <Car />
+
       {/* Camera
        */}
       <OrbitControls
@@ -43,16 +74,11 @@ const Three = () => {
       <ambientLight args={["#ffffff", 0.74]} />
 
       <spotLight
-        args={["#ffffff", 5, 7, angleToRadians(45), 0.45]}
+        args={["#ffffff", 5, 10, angleToRadians(45), 0.45]}
         position={[-3, 1, 0]}
         castShadow
       />
 
-      {/* Ball */}
-      <mesh position={[0, 0.5, 0]} castShadow>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial color="#ffffff" metalness={0.4} roughness={0.2} />
-      </mesh>
       {/* Floor */}
       <mesh rotation={[-angleToRadians(90), 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />

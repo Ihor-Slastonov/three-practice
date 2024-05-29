@@ -5,11 +5,12 @@ import { Suspense, useState, useEffect } from "react";
 import Three from "./components/Three/Three";
 
 import "./App.css";
+import Loader from "./components/Loader/Loader";
 
 const App = () => {
   return (
     <Canvas id="three-canvas-container" shadows>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Three />
       </Suspense>
     </Canvas>
